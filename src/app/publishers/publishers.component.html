@@ -1,0 +1,9 @@
+<h2>Издатели</h2>
+
+<table>
+  <tbody>
+    <tr *ngFor="let item of data">
+      <td><a [routerLink]="['/publishers', item.publisherId]">{{item.name}}</a></td>
+    </tr>
+  </tbody>
+</table>

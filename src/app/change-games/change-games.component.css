@@ -1,0 +1,51 @@
+.developer, .publisher{
+  margin-top: 10px;
+  padding: 10px;
+  border: 3px solid black;
+}
+.select{
+  padding: 5px 15px;
+  border: 1px solid black;
+}
+
+
+.hid{
+  display: block;
+  height: 0px; 
+  overflow: hidden;
+}
+.developer:hover .hid{
+  height: auto;
+  max-height: 200px;
+  overflow-y: scroll;
+} 
+
+.option{
+  padding: 3px 15px;
+  cursor: pointer;
+}
+.option:hover{
+  background-color: rgb(223, 223, 223);
+}
+
+.publisher:hover .hid{
+  height: auto;
+  max-height: 200px;
+  overflow-y: scroll;
+}
+
+.ganre{
+  margin-top: 10px;
+  display: flex;
+  flex-wrap: wrap;
+}
+.ganre__item{
+  margin-left: 10px;
+  margin-bottom: 10px;
+  padding: 4px 14px 4px 7px;
+  display: flex;
+  align-items: center;
+  border: 1px solid black;
+  border-radius: 10px;
+  
+}

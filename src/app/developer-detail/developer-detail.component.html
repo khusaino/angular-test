@@ -1,0 +1,31 @@
+
+<div *ngIf="data">
+  <h2>Разработчик:  {{data.name}}</h2>
+  <div class="">Список разработанных игр</div>
+  <table *ngIf="data.game.length; else noGame">
+    <thead>
+      <tr>
+        <th>Название</th>
+        <th>Список жанров</th>
+        <th>Ссылка на подробное описание</th>
+      </tr>
+    </thead>
+
+    <tbody>
+    <tr *ngFor="let elem of data.game">
+      <td>{{elem.name}}</td>
+      <td>
+        <ul>
+          <li *ngFor='let genre of elem.gameXrefGenre'>{{genre.genre.name}}</li>
+        </ul>
+      </td>
+      <td><a [routerLink]="['/games', elem.gameId]">Подробное описание</a></td>
+    </tr>
+    
+  </tbody>
+  </table>
+  <ng-template #noGame>
+    <div >Список созданных игр пуст</div>
+  </ng-template>
+</div>
+

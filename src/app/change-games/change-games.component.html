@@ -1,0 +1,71 @@
+<h2>Редактирование издателей</h2>
+<h3>список:</h3>
+
+<table *ngIf='data'>
+  <thead>
+    <tr>
+        <th>Название</th>
+        <th>Список жанров</th>
+        <th>Ссылка на редактирование</th>
+        <th>Ссылка на удаление</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr *ngFor="let item of data">
+      <td>{{item.name}}</td>
+      <td>
+        <ul>
+          <li *ngFor="let genre of item.gameXrefGenre">{{genre.genre.name}}</li>
+        </ul>
+      </td>
+      <td><a [routerLink]="['/changeGames', item.gameId]" >Редактировать</a></td>
+      <td><button class="waves-effect waves-light btn-small red lighten-2" (click)="delete(item.gameId)">Удалить</button></td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="row" >
+  <h4>Создать игру</h4>
+  <div class="input-field col s6">
+    <span>Название</span>
+    <input  id="name" type="text" class="validate"  #newName (input)="name = newName.value " value="">
+
+    <span>Описание</span>
+    <input  id="description" type="text" class="validate"  #newDesc (input)="desc = newDesc.value" value="">
+    
+    <div class="developer">
+      <span>Разработчик</span>
+      <div class="select">{{dev?dev:"выбрать обязятельно"}}</div>
+      <div class="hid">
+        <div class="option" 
+        *ngFor='let elem of dataDevelopers' 
+        (click)='handleClick(elem.developerId, "developerId"); dev= elem.name'>
+          {{elem.name}}
+        </div>
+      </div>
+    </div>
+
+    <div class="publisher">
+      <span>Издатель</span>
+      <div class="select">{{publ?publ:"выбрать"}}</div>
+      <div class="hid">
+        <div class="option" 
+        *ngFor='let elem of dataPublishers' 
+        (click)='handleClick(elem.publisherId,  "publisherId"); publ= elem.name'>
+          {{elem.name}}
+        </div>
+      </div>
+    </div>
+
+    <span>Жанры</span>
+    <div class="ganre">
+      <label class="ganre__item" *ngFor='let elem of dataGenres'>
+        <input type="checkbox" #checked (input)='handleChecked(elem.genreId, checked.checked)'>
+        <span>{{elem.name}}</span>
+      </label>
+    </div>
+
+    <button class="waves-effect waves-light btn-small green lighten-2" (click)="create()">Создать</button>
+  </div>
+</div>

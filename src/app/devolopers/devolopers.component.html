@@ -1,0 +1,8 @@
+<h2>Разработчики</h2>
+<table>
+  <tbody>
+    <tr *ngFor="let item of data">
+      <td><a [routerLink]="['/developers', item.developerId]">{{item.name}}</a></td>
+    </tr>
+  </tbody>
+</table>

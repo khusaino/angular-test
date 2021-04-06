@@ -1,0 +1,22 @@
+<h2>Игры</h2>
+<table>
+  <thead>
+    <tr>
+        <th>Название игры</th>
+        <th>Список жанров</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr *ngFor="let item of data">
+      <td><a [routerLink]="['/games', item.gameId]" >{{item.name}}</a></td>
+      <td>
+        <ul >
+          <li *ngFor="let genre of item.gameXrefGenre">
+            {{genre.genre.name}}
+          </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>

@@ -1,0 +1,64 @@
+.developer, .publisher{
+  margin-top: 10px;
+  padding: 10px;
+  border: 3px solid black;
+}
+.select{
+  padding: 5px 15px;
+  border: 1px solid black;
+}
+
+
+.hid{
+  display: block;
+  height: 0px; 
+  overflow: hidden;
+}
+.developer:hover .hid{
+  height: auto;
+  max-height: 200px;
+  overflow-y: scroll;
+} 
+
+.option{
+  padding: 3px 15px;
+  cursor: pointer;
+}
+.option:hover{
+  background-color: rgb(223, 223, 223);
+}
+
+.publisher:hover .hid{
+  height: auto;
+  max-height: 200px;
+  overflow-y: scroll;
+}
+.submit{
+  margin: 10px 0 20px;
+  display: block;
+}
+
+.ganre{
+  margin-top: 10px;
+  display: flex;
+  flex-wrap: wrap;
+}
+.ganre__item{
+  margin-left: 10px;
+  margin-bottom: 10px;
+  padding: 4px 14px 4px 7px;
+  display: flex;
+  align-items: center;
+  border: 1px solid black;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.del{
+  margin-left: 5px;
+  display: inline-block;
+  background-color: inherit;
+  cursor: pointer;
+  border-radius: 50%;
+}
+

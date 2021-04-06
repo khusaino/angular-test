@@ -1,0 +1,44 @@
+<h2>Редактирование жанров</h2>
+<h3>список:</h3>
+
+<table *ngIf='data'>
+  <thead>
+    <tr>
+        <th>Название</th>
+        
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let item of data">
+
+      <td *ngIf="!rename[item.genreId]; else input">{{item.name}}</td>
+      <ng-template #input>
+        <td><input  id="name" type="text" class="validate"  #newName (input)="handleName(newName.value, item.genreId)" [value]="item.name"> </td>
+      </ng-template>
+
+      <td *ngIf="!rename[item.genreId]; else save">
+        <button 
+        class="waves-effect waves-light btn-small yellow lighten-2" 
+        (click)="activateInput(item.genreId, item.name)"
+        >Изменить</button>
+      </td>
+      <ng-template #save>
+        <td>
+          <button 
+          class="waves-effect waves-light btn-small green lighten-2" 
+          (click)="saveV(item.genreId)"
+          >Сохранить</button>
+        </td>
+      </ng-template>
+    </tr>
+  </tbody>
+</table>
+
+<div class="row" >
+  <h4>Создать жанр</h4>
+  <div class="input-field col s6">
+    <span>Название</span>
+    <input  id="name" type="text" class="validate"  #name (input)="handleInput(name.value)" value="new ganre">
+    <button class="waves-effect waves-light btn-small green lighten-2" (click)="create()">Создать</button>
+  </div>
+</div>

@@ -1,0 +1,54 @@
+<div class="row" *ngIf='data'>
+  <h4>Редактировать игру</h4>
+  <div class="input-field col s6">
+    <span>Название</span>
+    <input  id="name" type="text" class="validate"  #newName (input)="name = newName.value " [value]="data.name">
+
+    <span>Описание</span>
+    <input  id="description" type="text" class="validate"  #newDesc (input)="desc = newDesc.value" [value]="data.description">
+    
+    <div class="developer">
+      <span>Разработчик</span>
+      <div class="select">{{dev ? dev : data.developer.name}}</div>
+      <div class="hid">
+        <div class="option" 
+        *ngFor='let elem of dataDevelopers' 
+        (click)='handleClick(elem.developerId, "developerId"); dev= elem.name'>
+          {{elem.name}}
+        </div>
+      </div>
+    </div>
+
+    <div class="publisher">
+      <span>Издатель</span>
+      <div class="select">{{publ ? publ : data.publisher.name}}</div>
+      <div class="hid">
+        <div class="option" 
+        *ngFor='let elem of dataPublishers' 
+        (click)='handleClick(elem.publisherId,  "publisherId"); publ= elem.name'>
+          {{elem.name}}
+        </div>
+      </div>
+    </div>
+    <button class="waves-effect waves-light btn-small green lighten-2 submit" (click)="cgange()">изменить</button>
+    
+
+    <span>Жанры</span>
+    <div class="change-ganre">
+      <div class="ganre" >
+        <div class="ganre__item" *ngFor='let elem of data.gameXrefGenre'>
+          <span>{{elem.genre.name}}</span>
+          <button class="del" (click)='deleteGenre(elem.genreId, elem.gameId)'>X</button>
+        </div>
+      </div>
+    </div>
+    <span>Добавить</span>
+    <div class="ganre" >
+      <div class="ganre__item" *ngFor='let elem of freeGenreList' (click)="addGenre(elem.genreId, id)">
+        <span>{{elem.name}}</span>
+      </div>
+    </div>
+
+    
+  </div>
+</div>

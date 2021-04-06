@@ -1,0 +1,29 @@
+<h2>Игра</h2>
+<table *ngIf="data">
+  <tbody>
+    <tr >
+      <td>Название</td>
+      <td>{{data.name}}</td>
+    </tr>
+    <tr >
+      <td>Описание</td>
+      <td>{{data.description}}</td>
+    </tr>
+    <tr >
+      <td>Жанры</td>
+      <td>
+        <ul>
+          <li *ngFor='let genre of data.gameXrefGenre'>{{genre.genre.name}}</li>
+        </ul>
+      </td>
+    </tr>
+    <tr >
+      <td>Имя разработчика</td>
+      <td><a [routerLink]="['/developers', data.developer.developerId]">{{data.developer.name}}</a></td>
+    </tr>
+    <tr *ngIf="data.publisher">
+      <td>Имя издателя</td>
+      <td><a [routerLink]="['/publishers', data.publisherId]">{{data.publisher.name}}</a></td>
+    </tr>
+  </tbody>
+</table>
