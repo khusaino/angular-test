@@ -10,13 +10,12 @@ export class PublishersComponent implements OnInit {
 
   constructor(private http: HttpClient) { }
 
-  data: object = []
+  data: object 
 
-  request(){
+  request():void{
     this.http.get('http://api.pulter.tv/0CD29A8C-8968-4D0F-9F00-921DDDD938C3/api/Publishers')
-    .subscribe((response)=>{
+    .subscribe((response:object)=>{
       this.data = response
-      console.log(this.data)
     })
   }
 

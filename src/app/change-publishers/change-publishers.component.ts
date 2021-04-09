@@ -10,12 +10,12 @@ export class ChangePublishersComponent implements OnInit {
 
   constructor(private http: HttpClient) { }
 
-  data: object = []
+  data: object 
   name: string = 'new publisher'
 
-  request(){
+  request():void{
     this.http.get('http://api.pulter.tv/0CD29A8C-8968-4D0F-9F00-921DDDD938C3/api/Publishers')
-    .subscribe((response)=>{
+    .subscribe((response:object)=>{
       this.data = response
       console.log(this.data)
     })
@@ -25,28 +25,26 @@ export class ChangePublishersComponent implements OnInit {
     this.request()
   }
 
-  handleInput(value){
+  handleInput(value:string):void{
     this.name = value
   }
 
-  create(){
+  create():void{
     let body:object = {
       "publisherId": 0,
       'name' : this.name
     }
-    this.http.post('http://api.pulter.tv/0CD29A8C-8968-4D0F-9F00-921DDDD938C3/api/Publishers', body ).subscribe((response)=>{
+    this.http.post('http://api.pulter.tv/0CD29A8C-8968-4D0F-9F00-921DDDD938C3/api/Publishers', body ).subscribe((response:object)=>{
       console.log(response)
       this.request()
     })
   }
 
-  delete(id: number){
+  delete(id: number):void{
     this.http.delete('http://api.pulter.tv/0CD29A8C-8968-4D0F-9F00-921DDDD938C3/api/Publishers/'+id)
-    .subscribe((response)=>{
-      console.log(response)
+    .subscribe((response:object)=>{
       this.request()
     })
-    
   }
 
 }

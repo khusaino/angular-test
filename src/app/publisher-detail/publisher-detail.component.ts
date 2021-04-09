@@ -14,15 +14,14 @@ export class PublisherDetailComponent implements OnInit {
     private http: HttpClient
   ) { }
 
-    id: any = null
-    data: any 
+    id: number
+    data: object 
 
-  ngOnInit() {
-      this.id = this.route.snapshot.paramMap.get('id')
+  ngOnInit():void{
+      this.id = +this.route.snapshot.paramMap.get('id')
       this.http.get('http://api.pulter.tv/0CD29A8C-8968-4D0F-9F00-921DDDD938C3/api/Publishers/' + this.id)
-      .subscribe((response)=>{
+      .subscribe((response:object)=>{
         this.data = response
-        console.log(this.data)
       })
     }
 }

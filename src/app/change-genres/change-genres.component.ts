@@ -10,15 +10,15 @@ export class ChangeGenresComponent implements OnInit {
 
   constructor(private http: HttpClient) { }
 
-  data: object = []
+  data: object[]
   name: string = 'new publisher'
 
   rename: object = {}
-  nameList: object = {}
+  nameList: object ={}
 
-  request(){
+  request():void{
     this.http.get('http://api.pulter.tv/0CD29A8C-8968-4D0F-9F00-921DDDD938C3/api/Genres')
-    .subscribe((response)=>{
+    .subscribe((response:object[])=>{
       this.data = response
       console.log(this.data)
     })
@@ -28,42 +28,42 @@ export class ChangeGenresComponent implements OnInit {
     this.request()
   }
 
-  handleInput(value:string){
+  handleInput(value:string):void{
     this.name = value
   }
 
-  create(){
+  create():void{
     let body:object = {
       "publisherId": 0,
       'name' : this.name
     }
-    this.http.post('http://api.pulter.tv/0CD29A8C-8968-4D0F-9F00-921DDDD938C3/api/Genres', body ).subscribe((response)=>{
+    this.http.post('http://api.pulter.tv/0CD29A8C-8968-4D0F-9F00-921DDDD938C3/api/Genres', body ).subscribe((response:object)=>{
       console.log(response)
       this.request()
     })
   }
 
-  saveV(id: string){
+  saveV(id: number):void{
     console.log('123123')
     let body:object ={
       'genreId': id,
       'name': this.nameList[id] 
     }
     this.http.put('http://api.pulter.tv/0CD29A8C-8968-4D0F-9F00-921DDDD938C3/api/Genres/'+id, body)
-    .subscribe((response)=>{
+    .subscribe((response:object)=>{
       this.request()
       this.rename[id] = false
     })
     
   }
 
-  activateInput(id:string, name: string){
+  activateInput(id:number, name: string):void{
     this.rename[id] = true
     this.nameList[id] = name;
     console.log(this.rename)
   }
 
-  handleName(value: string, id:string){
+  handleName(value: string, id:number):void{
     this.nameList[id] = value
   }
 
