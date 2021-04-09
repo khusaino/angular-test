@@ -14,35 +14,31 @@ export class ChangeDevolopersDetailComponent implements OnInit {
     private http: HttpClient
   ) { }
 
-    id: any = null
+    id: number
     data: any 
     name: string
 
-  ngOnInit() {
-      this.id = this.route.snapshot.paramMap.get('id')
+  ngOnInit():void{
+      this.id = +this.route.snapshot.paramMap.get('id')
       this.http.get('http://api.pulter.tv/0CD29A8C-8968-4D0F-9F00-921DDDD938C3/api/Developers/' + this.id)
-      .subscribe((response)=>{
+      .subscribe((response: object)=>{
         this.data = response
         this.name = this.data.name
-        console.log(this.data)
-      })
-      
+      }) 
     }
 
-  handleInput(value){
+  handleInput(value:string):void{
     this.name = value
-    console.log(this.name)
   }
 
-  change(){
-    let body = {
+  change():void{
+    let body: object = {
       'developerId': this.id,
       'name': this.name,
     }
     this.http.put('http://api.pulter.tv/0CD29A8C-8968-4D0F-9F00-921DDDD938C3/api/Developers/' + this.id, body)
-    .subscribe(response=>{
+    .subscribe((response:object)=>{
       console.log(response)
     })
   }
-
 }

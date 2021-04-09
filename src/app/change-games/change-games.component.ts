@@ -10,34 +10,38 @@ export class ChangeGamesComponent implements OnInit {
 
   constructor(private http: HttpClient) { }
 
-  data: object = []
-  dataDevelopers: object = []
-  dataGenres: object = []
-  dataPublishers: object = []
-  request(){
+  data: object 
+  dataDevelopers: object 
+  dataGenres: object 
+  dataPublishers: object
+  
+  publ:string
+  dev:string
+
+  request():void{
     this.http.get('http://api.pulter.tv/0CD29A8C-8968-4D0F-9F00-921DDDD938C3/api/Games')
-    .subscribe((response)=>{
+    .subscribe((response:object)=>{
       this.data = response
       console.log(this.data)
     })
   }
-  requestDevolopers(){
+  requestDevolopers():void{
     this.http.get('http://api.pulter.tv/0CD29A8C-8968-4D0F-9F00-921DDDD938C3/api/Developers')
-    .subscribe((response)=>{
+    .subscribe((response:object)=>{
       this.dataDevelopers = response
       console.log(this.data)
     })
   }
-  requestPublishers(){
+  requestPublishers():void{
     this.http.get('http://api.pulter.tv/0CD29A8C-8968-4D0F-9F00-921DDDD938C3/api/Publishers')
-    .subscribe((response)=>{
+    .subscribe((response:object)=>{
       this.dataPublishers = response
       console.log(this.data)
     })
   }
-  requestGenres(){
+  requestGenres():void{
     this.http.get('http://api.pulter.tv/0CD29A8C-8968-4D0F-9F00-921DDDD938C3/api/Genres')
-    .subscribe((response)=>{
+    .subscribe((response:object)=>{
       this.dataGenres = response
       console.log(this.data)
     })
@@ -52,10 +56,9 @@ export class ChangeGamesComponent implements OnInit {
 
 
 
-  delete(id: number){
+  delete(id: number):void{
     this.http.delete('http://api.pulter.tv/0CD29A8C-8968-4D0F-9F00-921DDDD938C3/api/Games/'+id)
     .subscribe((response)=>{
-      console.log(response)
       this.request()
     })
   }
@@ -65,10 +68,8 @@ export class ChangeGamesComponent implements OnInit {
 
   name: string
   desc:string
-  dev:any
-  publ:any = ''
-  genre: any = {}
-  body: any = {
+  genre: object = {}
+  body: object = {
     "gameId": 0,
     "name": "string",
     "description": "string",
@@ -78,8 +79,8 @@ export class ChangeGamesComponent implements OnInit {
   };
 
 
-  createGenreArr(){
-    let res = []
+  createGenreArr():object[]{
+    let res: object[] = []
     for(let elem in this.genre){
       let genre = {
         "gameId": 0,
@@ -90,24 +91,22 @@ export class ChangeGamesComponent implements OnInit {
     return res
   }
   
-  create(){
+  create():void{
     this.body['name'] = this.name
     this.body['description'] = this.desc
     this.body['gameXrefGenre'] = this.createGenreArr()
-    if(this.body.developerId === 0){
+    if(this.body['developerId'] === 0){
       return alert("Выберите разработчика!!!")
     }
     else{
-      this.http.post('http://api.pulter.tv/0CD29A8C-8968-4D0F-9F00-921DDDD938C3/api/Games', this.body ).subscribe((response)=>{
+      this.http.post('http://api.pulter.tv/0CD29A8C-8968-4D0F-9F00-921DDDD938C3/api/Games', this.body ).subscribe((response:object)=>{
       console.log(response)
       this.request()
       alert('игра создана')
       })
     }
-    
-    console.log(this.body)
   }
-  handleChecked(id:string, checked:boolean){
+  handleChecked(id:number, checked:boolean):void{
     if(checked){
       this.genre['genre'+id] = id
     }
@@ -116,9 +115,8 @@ export class ChangeGamesComponent implements OnInit {
     }
   }
 
-  handleClick(id, elem){
+  handleClick(id:number, elem:string):void{
     this.body[elem] = id
-    console.log(id, elem, this.body)
   }
 
 }

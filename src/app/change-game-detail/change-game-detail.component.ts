@@ -14,14 +14,13 @@ export class ChangeGameDetailComponent implements OnInit {
     private http: HttpClient
   ) { }
 
-    id: any = null
+    id: number 
     data: any 
     name: string
-    freeGenreList: any
+    freeGenreList: object[]
     desc:string
-    dev:any
-    publ:any = ''
-    genre: any = {}
+    dev:string
+    publ:string = ''
     body: any = {
       "gameId": 0,
       "name": "string",
@@ -30,37 +29,37 @@ export class ChangeGameDetailComponent implements OnInit {
       "developerId": 0,
     };
 
-  dataDevelopers: object 
-  dataGenres 
-  dataPublishers: object 
+  dataDevelopers: object[]
+  dataGenres: object[]
+  dataPublishers: object[]
   
   // запрос списка разработчиков
-  requestDevolopers(){
+  requestDevolopers():void{
     this.http.get('http://api.pulter.tv/0CD29A8C-8968-4D0F-9F00-921DDDD938C3/api/Developers')
-    .subscribe((response)=>{
+    .subscribe((response:object[])=>{
       this.dataDevelopers = response
       console.log(this.data)
     })
   }
   // запрос списка издатетлй
-  requestPublishers(){
+  requestPublishers():void{
     this.http.get('http://api.pulter.tv/0CD29A8C-8968-4D0F-9F00-921DDDD938C3/api/Publishers')
-    .subscribe((response)=>{
+    .subscribe((response:object[])=>{
       this.dataPublishers = response
     })
   }
   // запрос списка жанров
-  requestGenres(){
+  requestGenres():void{
     this.http.get('http://api.pulter.tv/0CD29A8C-8968-4D0F-9F00-921DDDD938C3/api/Genres')
-    .subscribe((response)=>{
+    .subscribe((response:object[])=>{
       this.dataGenres = response
       this.filterGenreList()
     })
   }
   // запрос деталей игры
-  request(thisId){
+  request(thisId:number):void{
       this.http.get('http://api.pulter.tv/0CD29A8C-8968-4D0F-9F00-921DDDD938C3/api/Games/' + thisId)
-      .subscribe((response)=>{
+      .subscribe((response:object)=>{
         this.data = response
         this.name = this.data.name
         this.desc = this.data.description
@@ -70,18 +69,18 @@ export class ChangeGameDetailComponent implements OnInit {
       })
   }
 
-  ngOnInit() {
-    this.id = this.route.snapshot.paramMap.get('id')
+  ngOnInit() :void{
+    this.id = +this.route.snapshot.paramMap.get('id')
     this.request(this.id)
     this.requestDevolopers()
     this.requestPublishers()
   }
   // фильтрует список жанров, возвращает список жанров которые не находятся в свойстве игры
-  filterGenreList(){
-    this.freeGenreList = this.dataGenres.filter((elem)=>{
+  filterGenreList():void{
+    this.freeGenreList = this.dataGenres.filter((elem:object):boolean=>{
       let res = true
       for(let item of this.data.gameXrefGenre){
-        if(elem.genreId === item.genreId){
+        if(elem["genreId"] === item.genreId){
           res = false
           break
         }else{
@@ -92,29 +91,29 @@ export class ChangeGameDetailComponent implements OnInit {
     })
   }
   // сохраняет изменеие игры
-  cgange(){
+  cgange():void{
     this.body['gameId'] = this.id
     this.body['name'] = this.name
     this.body['description'] = this.desc
-      this.http.put('http://api.pulter.tv/0CD29A8C-8968-4D0F-9F00-921DDDD938C3/api/Games/'+this.id, this.body ).subscribe((response)=>{
+      this.http.put('http://api.pulter.tv/0CD29A8C-8968-4D0F-9F00-921DDDD938C3/api/Games/'+this.id, this.body ).subscribe((response:object)=>{
       console.log(response)
       alert('игра отредоктирована')
       })
   }
   // заполняет свойства body: 'publisherId' и 'developerId'
-  handleClick(id, elem){
+  handleClick(id:number, elem:string):void{
     this.body[elem] = id
   }
   // удаляет жанры
-  deleteGenre(genreId, gameId){
+  deleteGenre(genreId:number, gameId:number):void{
     this.http.delete('http://api.pulter.tv/0CD29A8C-8968-4D0F-9F00-921DDDD938C3/api/GameXrefGenres/'+gameId + '?genre_id='+genreId)
     .subscribe(()=>{
       this.request(this.id)
     })
   }
   // добовлят жанры
-  addGenre(genreId, gameId){
-    let body = {
+  addGenre(genreId:number, gameId:number):void{
+    let body:object = {
       "gameId": gameId,
       "genreId": genreId,
     }

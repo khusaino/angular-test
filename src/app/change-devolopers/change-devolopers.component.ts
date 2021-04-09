@@ -10,7 +10,7 @@ export class ChangeDevolopersComponent implements OnInit {
 
   constructor(private http: HttpClient) { }
 
-  data: object = []
+  data: any 
   name: string = 'new devoloper'
 
   request(){
@@ -25,28 +25,24 @@ export class ChangeDevolopersComponent implements OnInit {
     this.request()
   }
 
-  handleInput(value){
+  handleInput(value: string):void{
     this.name = value
   }
 
-  create(){
+  create():void{
     let body:object = {
       "developerId": 0,
       'name' : this.name
     }
-    this.http.post('http://api.pulter.tv/0CD29A8C-8968-4D0F-9F00-921DDDD938C3/api/Developers', body ).subscribe((response)=>{
-      console.log(response)
+    this.http.post('http://api.pulter.tv/0CD29A8C-8968-4D0F-9F00-921DDDD938C3/api/Developers', body ).subscribe((response: object)=>{
       this.request()
     })
   }
 
-  delete(id: number){
+  delete(id: number):void{
     this.http.delete('http://api.pulter.tv/0CD29A8C-8968-4D0F-9F00-921DDDD938C3/api/Developers/'+id)
-    .subscribe((response)=>{
-      console.log(response)
+    .subscribe((response:object)=>{
       this.request()
     })
-    
   }
-
 }
